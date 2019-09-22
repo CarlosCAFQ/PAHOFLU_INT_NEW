@@ -1,0 +1,68 @@
+﻿@model Paho.Models.CatReasonNotSampling
+
+@{
+    string labelCatalog = Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelReasonNoSampling = Paho.Controllers.ResourcesM.SgetMessage("msgMenuCatReasonNotSamplingView", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelDelete = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelDeleteRecord = Paho.Controllers.ResourcesM.SgetMessage("msgDeleteRecord", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelReturnToList = Paho.Controllers.ResourcesM.SgetMessage("msgReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    //Paho.Controllers.CatVirusTypeController.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang)
+    //ViewBag.Title = "Delete";
+    ViewBag.Title = labelCatalog + " - " + labelReasonNoSampling;
+}
+
+@*<h2>Delete</h2>
+    <h3>Are you sure you want to delete this?</h3>*@
+<h2>@(labelDelete)</h2>
+<p class="error">@ViewBag.ErrorMessage</p>
+<h3>@(labelDeleteRecord)?</h3>
+
+<div>
+    <h4>@(labelCatalog) - @(labelReasonNoSampling)</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SPA)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SPA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ENG)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ENG)
+        </dd>
+
+    </dl>
+
+    @*@using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }*@
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value=@(labelDelete) class="btn btn-default" /> |
+            @Html.ActionLink(labelReturnToList, "Index", "CatReasonNotSampling", new { }, null)
+        </div>
+    }
+</div>
+

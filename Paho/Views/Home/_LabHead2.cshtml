@@ -1,0 +1,122 @@
+﻿@{
+    string LabelReceptionDate = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabIntRecDate", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelTemp = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelTemp", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelProcessed = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelProcessed", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelYes = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelYes", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelNo = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelNo", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelCauseNotProcessed = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelCauseNotProcessed", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelSelect = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabCaseLabelSelect", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelBarCode = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigLabIntLabelSampleIdentifier", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+}
+
+@**** 2do LAB *@
+@* xy -> x : Nº Muestra, y : Numero de laboratorio *@
+<!-- Cabecera Lab2: Fecha Recepcion / Temperatura -->
+<div class="row rowform" id="Test_1">
+    <div class="col-md-3_5">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @(LabelReceptionDate + " (Lab 2):")
+            </span>
+            <input id="RecDate12" type='text' class="form-control" data-bind='datepicker: RecDate12, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @LabelTemp
+            </span>
+            <input id="TempSample12" type='text' class="form-control case_letter" data-bind="value: TempSample12" />
+        </div>
+    </div>
+</div>
+<!-- Procesada / Motivo No procesada / Identificador Muestra -->
+<div class="row rowform" id="Test_1">
+    <div class="col-md-3_5">
+        <span>
+            @LabelProcessed
+        </span>
+        <label class="btn btn-default">
+            <input type="radio" name="Processed12" id="Processed12" value="true" data-bind="checked: Processed12"> @LabelYes
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="Processed12" id="Processed12" value="false" checked data-bind="checked: Processed12"> @LabelNo
+        </label>
+    </div>
+    <div class="col-md-5" data-bind="visible: NotShowProcessed12()">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @LabelCauseNotProcessed
+            </span>
+            <select id="NoProRenId12" class="form-control" data-bind="options: CSNP,
+                            optionsText: 'Name',
+                            optionsValue: 'Id',
+                            optionsCaption: '@(LabelSelect)...',
+                            value: NoProRenId12"></select>
+            <input id="NoReason12" type='text' class="form-control case_letter" data-bind="value: NoProRen12 , visible: NotShowProcessedOther12()" />
+        </div>
+    </div>
+    <div class="col-md-5" data-bind="visible: ShowProcessed12()">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @(LabelBarCode + " (Lab 2):")
+            </span>
+            <input id="Identification_Test12" name="Identification_Test12" type='text' class="form-control case_letter" data-bind="value: Identification_Test12" />
+        </div>
+    </div>
+</div>
+
+@**** 3er LAB *@
+<div class="row rowform" id="Test_1">
+    <div class="col-md-3_5">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @(LabelReceptionDate + " (Lab 3):")
+            </span>
+            <input id="RecDate13" type='text' class="form-control" data-bind='datepicker: RecDate13 , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @LabelTemp
+            </span>
+            <input id="TempSample13" type='text' class="form-control case_letter" data-bind="value: TempSample13" />
+        </div>
+    </div>
+</div>
+<!-- Procesada / Motivo No procesada / Identificador Muestra -->
+<div class="row rowform" id="Test_1">
+    <div class="col-md-3_5">
+        <span>
+            @LabelProcessed
+        </span>
+        <label class="btn btn-default">
+            <input type="radio" name="Processed13" id="Processed13" value="true" data-bind="checked: Processed13"> @LabelYes
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" name="Processed13" id="Processed13" value="false" checked data-bind="checked: Processed13"> @LabelNo
+        </label>
+    </div>
+    <div class="col-md-5" data-bind="visible: NotShowProcessed13()">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @LabelCauseNotProcessed
+            </span>
+            <select id="NoProRenId13" class="form-control" data-bind="options: CSNP,
+                            optionsText: 'Name',
+                            optionsValue: 'Id',
+                            optionsCaption: '@(LabelSelect)...',
+                            value: NoProRenId13"></select>
+            <input id="NoReason13" type='text' class="form-control case_letter" data-bind="value: NoProRen13 , visible: NotShowProcessedOther13()" />
+        </div>
+    </div>
+    <div class="col-md-5" data-bind="visible: ShowProcessed13()">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @(LabelBarCode + " (Lab 3):")
+            </span>
+            <input id="Identification_Test13" name="Identification_Test13" type='text' class="form-control case_letter" data-bind="value: Identification_Test13" />
+        </div>
+    </div>
+</div>

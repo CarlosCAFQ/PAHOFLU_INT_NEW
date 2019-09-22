@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<Paho.Models.CatReasonNotSampling>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    string labelCatalog = Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelReasonNoSampling = Paho.Controllers.ResourcesM.SgetMessage("msgMenuCatReasonNotSamplingView", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelCreateNew = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_CrearNuevo", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelSearchCriteria = Paho.Controllers.ResourcesM.SgetMessage("msgSearchCriteria", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelSubmit = Paho.Controllers.ResourcesM.SgetMessage("viewHome_btnSearch", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelEdit = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Editar", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelDelete = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelPage = Paho.Controllers.ResourcesM.SgetMessage("msgPage", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelOf = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_De", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    ViewBag.Title = labelCatalog + " - " + labelReasonNoSampling;
+}
+
+<h4>@(labelCatalog) - @(labelReasonNoSampling)</h4>
+
+<p>
+    @Html.ActionLink(labelCreateNew, "Create", "CatReasonNotSampling", new { area = "" }, null)
+</p>
+
+@using (Html.BeginForm("Index", "CatReasonNotSampling", FormMethod.Get))
+{
+    <p>
+        @(labelSearchCriteria): @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value=@(labelSubmit) />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("SPA", "Index", new { sortOrder = ViewBag.SpaSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("ENG", "Index", new { sortOrder = ViewBag.SpaSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SPA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ENG)
+            </td>
+            <td>
+                @Html.ActionLink(labelEdit, "Edit", "CatReasonNotSampling", new { id = item.ID }, null) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                @Html.ActionLink(labelDelete, "Delete", "CatReasonNotSampling", new { id = item.ID }, null)
+            </td>
+        </tr>
+    }
+</table>
+<br />
+@(labelPage) @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @(labelOf) @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

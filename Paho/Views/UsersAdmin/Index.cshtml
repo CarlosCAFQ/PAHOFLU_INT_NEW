@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Paho.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Listado de usuarios";
+}
+
+<h2>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminUserList", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h2>
+
+<p>
+    @Html.ActionLink(((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexCreateUser", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexUserId", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexName", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgInstitution", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditRoles", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexCountry", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserRolesListJoin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.Country.Name)
+            </td>
+            <td>
+                @Html.ActionLink(((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexEdit", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), "Edit", new { id = item.Id }) |
+                @Html.ActionLink(((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexDelete", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#usersadminLink').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  
+
+
