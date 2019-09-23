@@ -124,27 +124,50 @@ function CaseLabses(SampleNumber) {
 
     //****
     self.Processed12.subscribe(function (NewIsProcessed) {
+        console.log("self.Processed12.subscribe____");
         if (NewIsProcessed == "false") {
             self.Identification_Test12(null);
             //self.removeTestbyLab(self.UsrInstID(), 1);
-            //$("#addLabTest_1").hide();
+            $("#addLabTest_1").hide();
         } else if (NewIsProcessed == "true") {
-            //$("#addLabTest_1").show();
+            $("#addLabTest_1").show();
         }
+        console.log("self.Processed12.subscribe____END");
     });
     //********************************
+    //self.ShowProcessed12ab = ko.observable();
     self.ShowProcessed12 = ko.computed(function () {
+        console.log("self.ShowProcessed12____");
         self.NoProRen12("");
         self.NoProRenId12("");
         ////if (self.Processed12 == "true" && self.Processed_National == "false")
         ////    self.resetFinalResult();
-        return (self.Processed12() === "true")
+        console.log("zzz1");
+        console.log(self.Processed12())
+        if (self.Processed12() === "true")
+            console.log("verdaderoo");
+        else
+            console.log("falsooo");
+        console.log("zzz1a");
+        var xxx = (self.Processed12() === "true");
+        console.log(xxx);
+        console.log("zzz2");
+        //return (self.Processed12() === "true")
+        //self.ShowProcessed12ab(true);
+        console.log("self.ShowProcessed12____END");
+        return true;
     }, self);
+
     self.NotShowProcessed12 = ko.computed(function () {
+        console.log("self.NotShowProcessed12__");
         return (self.Processed12() === "false")
+        //console.log("self.NotShowProcessed12__END");
     }, self);
+
     self.NotShowProcessedOther12 = ko.computed(function () {
+        console.log("self.NotShowProcessedOther12__");
         return (self.NoProRenId12() === "5")
+        //console.log("self.NotShowProcessedOther12__END");
     }, self);
 
     //self.LabDummy = ko.observable("");
@@ -3582,6 +3605,28 @@ function LabViewModel(app, dataModel) {
     ////********************************
     self.ShowProcessed_DELETE = ko.computed(function () {
         return (true);
+    }, self);
+
+    self.ShowProcessed12 = ko.computed(function () {
+        console.log("self.ShowProcessed12====");
+        //self.NoProRen12("");
+        //self.NoProRenId12("");
+        //////if (self.Processed12 == "true" && self.Processed_National == "false")
+        //////    self.resetFinalResult();
+        //console.log("zzz1");
+        //console.log(self.Processed12())
+        //if (self.Processed12() === "true")
+        //    console.log("verdaderoo");
+        //else
+        //    console.log("falsooo");
+        //console.log("zzz1a");
+        //var xxx = (self.Processed12() === "true");
+        //console.log(xxx);
+        //console.log("zzz2");
+        ////return (self.Processed12() === "true")
+        //self.ShowProcessed12ab(true);
+        console.log("self.ShowProcessed12====END");
+        return true;
     }, self);
 
     //self.ShowProcessed = ko.computed(function () {
