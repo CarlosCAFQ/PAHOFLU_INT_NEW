@@ -9,65 +9,65 @@
     string LabelBarCode = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigLabIntLabelSampleIdentifier", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
 }
 
+
+@*<div id="CaseLabes" data-bind="foreach: { data: CaseLabses }">
+
+</div>*@   
+
 <!-- Cabecera Lab2: Fecha Recepcion / Temperatura -->
-<div id="CaseLabes" data-bind="foreach: { data: CaseLabses }">
-    <div class="row rowform" id="Test_1">
-        <div class="col-md-3_5">
-            <div class='input-group'>
-                <span class="input-group-addon">
-                    @*@(LabelReceptionDate + " (Lab 2):")*@
-                    xyz@(LabelReceptionDate + " (Lab ") <span data-bind="text: ($index() + 1)"></span><span>):</span>
-                </span>
-                <input type='text' class="form-control " data-bind='enable: CanEdit, datepicker: RecDate12, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
-                @*<input type='text' class="form-control " data-bind='datepicker: TestDate, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:CanEdit' />*@
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class='input-group'>
-                <span class="input-group-addon">
-                    @LabelTemp
-                </span>
-                <input id="TempSample12" type='text' class="form-control case_letter" data-bind="value: TempSample12, enable: CanEdit" />
-            </div>
+<div class="row rowform" id="Test_1">
+    <div class="col-md-3_5">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                xyz@(LabelReceptionDate + " (Lab ") <span data-bind="text: ($index() + 1)"></span><span>):</span>
+            </span>
+            <input type='text' class="form-control " data-bind='enable: CanEdit, datepicker: RecDate12, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
         </div>
     </div>
-    <!-- Procesada / Motivo No procesada / Identificador Muestra -->
-    <div class="row rowform" id="Test_1">
-        <div class="col-md-3_5">
-            <span>
-                @LabelProcessed
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @LabelTemp
             </span>
-            <label class="btn btn-default">
-                <input type="radio" value="true" data-bind="checked: Processed12, enable: CanEdit"> @LabelYes
-            </label>
-            <label class="btn btn-default">
-                <input type="radio" value="false" data-bind="checked: Processed12, enable: CanEdit"> @LabelNo
-            </label>
+            <input id="TempSample12" type='text' class="form-control case_letter" data-bind="value: TempSample12, enable: CanEdit" />
         </div>
-        <div class="col-md-5" data-bind="visible: NotShowProcessed12()">
-            <div class='input-group'>
-                <span class="input-group-addon">
-                    @LabelCauseNotProcessed
-                </span>
-                <select id="NoProRenId12" class="form-control" data-bind="enable: CanEdit, options: CSNP,
+    </div>
+</div>
+<!-- Procesada / Motivo No procesada / Identificador Muestra -->
+<div class="row rowform" id="Test_1">
+    <div class="col-md-3_5">
+        <span>
+            @LabelProcessed
+        </span>
+        <label class="btn btn-default">
+            <input type="radio" value="true" data-bind="checked: Processed12, enable: CanEdit"> @LabelYes
+        </label>
+        <label class="btn btn-default">
+            <input type="radio" value="false" data-bind="checked: Processed12, enable: CanEdit"> @LabelNo
+        </label>
+    </div>
+    <div class="col-md-5" data-bind="visible: NotShowProcessed12()">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @LabelCauseNotProcessed
+            </span>
+            <select id="NoProRenId12" class="form-control" data-bind="enable: CanEdit, options: CSNP,
                             optionsText: 'Name',
                             optionsValue: 'Id',
                             optionsCaption: '@(LabelSelect)...',
-                            value: NoProRenId12">
-                </select>
-                <input id="NoReason12" type='text' class="form-control case_letter" data-bind="value: NoProRen12, visible: NotShowProcessedOther12(), enable: CanEdit" />
-            </div>
-        </div>
-        <div class="col-md-5" data-bind="visible: ShowProcessed12()">
-            <div class='input-group'>
-                <span class="input-group-addon">
-                    @(LabelBarCode + " (Lab ") <span data-bind="text: ($index() + 1)"></span><span>):</span>
-                </span>
-                <input id="Identification_Test12" name="Identification_Test12" type='text' class="form-control case_letter" data-bind="value: Identification_Test12, enable: CanEdit" />
-            </div>
+                            value: NoProRenId12"></select>
+            <input id="NoReason12" type='text' class="form-control case_letter" data-bind="value: NoProRen12, visible: NotShowProcessedOther12(), enable: CanEdit" />
         </div>
     </div>
-</div>   
+    <div class="col-md-5" data-bind="visible: ShowProcessed12()">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @(LabelBarCode + " (Lab ") <span data-bind="text: ($index() + 1)"></span><span>):</span>
+            </span>
+            <input id="Identification_Test12" name="Identification_Test12" type='text' class="form-control case_letter" data-bind="value: Identification_Test12, enable: CanEdit" />
+        </div>
+    </div>
+</div>
 
 
 @**** 3er LAB *@

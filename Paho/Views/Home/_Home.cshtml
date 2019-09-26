@@ -1,4 +1,15 @@
 ﻿@model Paho.Models.CaseViewModel
+@{
+    string LabelAddResult = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelAddResult", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    //string LabelTemp = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelTemp", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    //string LabelProcessed = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelProcessed", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelYes = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelYes", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelNo = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelNo", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    //string LabelCauseNotProcessed = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabLabelCauseNotProcessed", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    //string LabelSelect = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabCaseLabelSelect", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    //string LabelBarCode = Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigLabIntLabelSampleIdentifier", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+}
+
 <!-- ko with: home -->
 <div class="row">
     <!-- Parametros para busqueda -->
@@ -3712,1241 +3723,230 @@
             
             -->
 
+        <!--_kxxo_foreach:_CaseLabses_-->
         <div id="CaseLabes" data-bind="foreach: { data: CaseLabses }">
+
             @Html.Partial("_LabHead")
 
-
-        </div> 
-
-        
-        
-        @if (ViewBag.UsrCtry == 15 || (ViewBag.UsrCtry == 25 && ViewBag.NPHL_exist == true))
-        {
-            <!-- Fecha Recepcion NAC / Temperatura NAC -->
-            <div class="row rowform" id="Test_National">
-                <div class="col-md-3_5">
-                    <div class='input-group'>
-                        <span class="input-group-addon">
-                            bbb@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelReceptionDateNational"))
-                        </span>
-                        <input id="RecDate_National" type='text' class="form-control " data-bind='datepicker: RecDate_National , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
+            @if (ViewBag.UsrCtry == 15 || (ViewBag.UsrCtry == 25 && ViewBag.NPHL_exist == true))
+            {
+                <!-- Fecha Recepcion NAC / Temperatura NAC -->
+                <div class="row rowform" id="Test_National">
+                    <div class="col-md-3_5">
+                        <div class='input-group'>
+                            <span class="input-group-addon">
+                                bbb@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelReceptionDateNational"))
+                            </span>
+                            <input id="RecDate_National" type='text' class="form-control " data-bind='datepicker: RecDate_National , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class='input-group'>
+                            <span class="input-group-addon">
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelTempNational"))
+                            </span>
+                            <input id="TempSample_National" type='text' class="form-control case_letter" data-bind="value: TempSample_National" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class='input-group'>
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelTempNational"))
+                <!-- Procesado NAC / Motino No Procesado NAC / Identificador Muestra NAC -->
+                <div class="row rowform" id="Test_National">
+                    <div class="col-md-3_5">
+                        <span>
+                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessedNational"))
                         </span>
-                        <input id="TempSample_National" type='text' class="form-control case_letter" data-bind="value: TempSample_National" />
+                        <label class="btn btn-default">
+                            <input type="radio" name="Processed_National" id="Processed_National" value="true" data-bind="checked: Processed_National"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelYes"))
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="Processed_National" id="Processed_National" value="false" checked data-bind="checked: Processed_National"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelNo"))
+                        </label>
                     </div>
-                </div>
-            </div>
-            <!-- Procesado NAC / Motino No Procesado NAC / Identificador Muestra NAC -->
-            <div class="row rowform" id="Test_National">
-                <div class="col-md-3_5">
-                    <span>
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessedNational"))
-                    </span>
-                    <label class="btn btn-default">
-                        <input type="radio" name="Processed_National" id="Processed_National" value="true" data-bind="checked: Processed_National"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelYes"))
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="Processed_National" id="Processed_National" value="false" checked data-bind="checked: Processed_National"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelNo"))
-                    </label>
-                </div>
 
-                <div class="col-md-5" data-bind="visible:NotShowProcessed_National">
-                    <div class='input-group'>
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCauseNotProcessedNational"))
-                        </span>
-                        <select id="NoProRenId_National" class="form-control" data-bind="options: CSNP,
+                    <div class="col-md-5" data-bind="visible:NotShowProcessed_National">
+                        <div class='input-group'>
+                            <span class="input-group-addon">
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCauseNotProcessedNational"))
+                            </span>
+                            <select id="NoProRenId_National" class="form-control" data-bind="options: CSNP,
                             optionsText: 'Name',
                             optionsValue: 'Id',
                             optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabCaseLabelSelect"))...',
                             value: NoProRenId_National"></select>
-                        <input id="NoProRen_National" type='text' class="form-control case_letter" data-bind="value: NoProRen_National , visible:NotShowProcessedOther" />
+                            <input id="NoProRen_National" type='text' class="form-control case_letter" data-bind="value: NoProRen_National , visible:NotShowProcessedOther" />
 
-                    </div>
-                </div>
-
-                <div class="col-md-5" data-bind="visible:ShowProcessed_National">
-                    <div class='input-group'>
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigLabIntLabelBarCodeNational"))
-                        </span>
-                        <input id="Identification_Test_National" name="Identification_Test_National" type='text' class="form-control case_letter" data-bind="value: Identification_Test_National" />
-                    </div>
-                </div>
-            </div>
-        }        
-
-        <!-- Linea HR -->
-        <div class="row rowform">
-            <div class="col-md-12">
-                <div style="font-weight:bold;font-size:11px">
-                    <hr style="margin-top:3px; margin-bottom:3px; border-width:1px  0  0; " />
-                </div>
-            </div>
-        </div>
-
-        <!-- <div data-bind="visible:ShowProcessed12() || ShowProcessed_National()" style="padding-left:15px;"> 
-            <div data-bind="visible: app.Views.Lab.CaseLabses.ShowProcessed12ab" style="padding-left:15px;">
-            -->
-        <div data-bind="visible: ShowProcessed12" style="padding-left:15px;">
-            <!-- Label: Laboratorio / Procesada / FIP / FFP / Resultado -->
-            <div class="row rowform">
-                <div class="row rowform">
-                    <div class="col-md-3">
-                        <span class="input-group-addon">
-                            11@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLab"))
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            22@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessed"))
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            33@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessStartDate"))
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessEndDate"))
-                        </span>
-                    </div>
-                    <div class="col-md-3">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResult"))
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Eliminar Tecnica / Laboratorio / Procesada fila lab / FIP / FFP / Vigilancia / Resultado  -->
-            <div id="LabTests" data-bind="foreach: { data: LabTests }">
-                <div class="row rowform" style="border-bottom:dashed; border-bottom-width:thin; padding-bottom:5px;">
-                    <!-- Boton eliminar -->
-                    <div class="row rowform">
-                        <div class="col-md-3">
-                            <div class='input-group'>
-                                <button id="revome_LabTest_1" type="button" style="background-color: #77dd77; color: white; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;" class="btn btn-primary" data-bind="enable: CanEdit,visible:CanEdit, click: $parent.removeLabTest.bind($data,1)">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelRemoveResult"))</button>
-                            </div>
                         </div>
                     </div>
 
-                    <div class="row rowform">
-                        <!-- Lab -->
-                        <div class="col-md-3">
-                            <div class='input-group'>
-                                <div data-bind="visible: CanEdit()">
-                                    <select name="DrpProcLab" id="DrpProcLab" class="form-control" data-bind="options:$parent.LabsResult,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-                                        value:ProcLab"></select>
-                                </div>
-                                <div data-bind="visible: !CanEdit()">
-                                    <label data-bind="text: ProcLabName "></label>
-                                </div>
-                                @*<input type="button" value="Borrar" data-bind="enable: CanEdit,visible:CanEdit, click: $parent.removeLabTest.bind($data,1)">*@
-                            </div>
-                        </div>
-                        <!-- Procesada -->
-                        <div class="col-md-2">
-                            <label class="btn btn-default">
-                                <input type="radio" value="true" data-bind="checked: ProcessLab, enable:CanEdit"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelYes"))
-                            </label>
-                            <label class="btn btn-default">
-                                <input type="radio" value="false" data-bind="checked: ProcessLab, enable:CanEdit"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelNo"))
-                            </label>
-                        </div>
-                        <!-- div class="row" data-bind="visible: NotShowProcessedLab">
+                    <div class="col-md-5" data-bind="visible:ShowProcessed_National">
                         <div class='input-group'>
                             <span class="input-group-addon">
-                                Why not processed?
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigLabIntLabelBarCodeNational"))
                             </span>
-                            <input id="NoReason" type='text' class="form-control" data-bind="value: NoProRen" />
+                            <input id="Identification_Test_National" name="Identification_Test_National" type='text' class="form-control case_letter" data-bind="value: Identification_Test_National" />
                         </div>
-                    </div -->
-                        <!-- div class="row" -->
-                        <!-- FIP -->
-                        <div class="col-md-2" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <input type='text' class="form-control " data-bind='datepicker: TestDate, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:CanEdit' />
+                    </div>
+                </div>
+            }
+
+            <!-- Linea HR -->
+            <div class="row rowform">
+                <div class="col-md-12">
+                    <div style="font-weight:bold;font-size:11px">
+                        <hr style="margin-top:3px; margin-bottom:3px; border-width:1px  0  0; " />
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div data-bind="visible:ShowProcessed12() || ShowProcessed_National()" style="padding-left:15px;">
+                <div data-bind="visible: app.Views.Lab.CaseLabses.ShowProcessed12ab" style="padding-left:15px;">
+                        $parent.LabsResult
+            -->
+            <div data-bind="visible: $data.ShowProcessed12" style="padding-left:15px;">
+                <!-- Label: Laboratorio / Procesada / FIP / FFP / Resultado -->
+                <div class="row rowform">
+                    <div class="row rowform">
+                        <div class="col-md-3">
+                            <span class="input-group-addon">
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLab"))
+                            </span>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="input-group-addon">
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessed"))
+                            </span>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="input-group-addon">
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessStartDate"))
+                            </span>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="input-group-addon">
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessEndDate"))
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="input-group-addon">
+                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResult"))
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Eliminar Tecnica / Laboratorio / Procesada fila lab / FIP / FFP / Vigilancia / Resultado  -->
+                <!--_kyyo_foreach:_LabTests_-->
+                <div id="LabTests" data-bind="foreach: { data: LabTests }">
+                    <div class="row rowform" style="border-bottom:dashed; border-bottom-width:thin; padding-bottom:5px;">
+                        <!-- Boton eliminar -->
+                        @*<div class="row rowform">
+                            <div class="col-md-3">
+                                <div class='input-group'>
+                                    <button id="revome_LabTest_1" type="button" style="background-color: #77dd77; color: white; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;" class="btn btn-primary" data-bind="enable: CanEdit,visible:CanEdit, click: $parent.removeLabTest.bind($data,1)">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelRemoveResult"))</button>
+                                    
+                                    <button id="revome_LabTest_1" type="button" style="background-color: #77dd77; color: white; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;" class="btn btn-primary" data-bind="enable: CanEdit,visible:CanEdit, click: $root.removeLabTest.bind($data,1)">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelRemoveResult"))</button>
+                                </div>
                             </div>
-                        </div>
-                        <!-- FFP -->
-                        <div class="col-md-2" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <input type='text' class="form-control" data-bind='datepicker: TestEndDate , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:CanEdit' />
+                        </div>*@
+
+                        <div class="row rowform">
+                            <!-- Lab -->
+                            <div class="col-md-3">
+                                <div class='input-group'>
+                                    <div data-bind="visible: LabTest.CanEdit">
+                                        <select name="DrpProcLab" id="DrpProcLab" class="form-control" data-bind="options: LabTest.LabsResult,
+                                            optionsText: 'Name',
+                                            optionsValue: 'Id',
+                                            value: LabTest.ProcLab">
+                                        </select>
+                                    </div>
+                                    <div data-bind="visible: LabTest.CanEdit">
+                                        xyz<label data-bind="text: LabTest.ProcLabName "></label>
+                                    </div>
+                                    @*<input type="button" value="Borrar" data-bind="enable: CanEdit,visible:CanEdit, click: $parent.removeLabTest.bind($data,1)">*@
+                                </div>
                             </div>
-                        </div>
-                        <!-- Vigilancia -->
-                        <div class="col-md-1_5" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <select class="form-control" data-bind="value: TestType, enable:CanEdit">
-                                    <option value="">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSelect"))</option>
-                                    <option value="1" data-bind="visible: CanIFI">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelIF"))</option>
-                                    <option value="2" data-bind="visible: CanPCR">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelPCR"))</option>
-                                    <option value="3" data-bind="visible:app.Views.Lab.isISP()">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCellCulture"))</option>
-                                </select>
+                            <!-- Procesada -->
+                            <div class="col-md-2">
+                                <label class="btn btn-default">
+                                    <input type="radio" value="true" data-bind="checked: $data.ProcessLab, enable: $parent.CanEdit"> z@(LabelYes) 
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" value="false" data-bind="checked: $data.ProcessLab, enable: $parent.CanEdit"> z@(LabelNo)
+                                </label>
                             </div>
-                        </div>
-                        <!-- Resultado -->
-                        <div class="col-md-1_5" data-bind="visible:EnableTestResult">
-                            <div class='input-group' data-bind="enable:CanEdit">
-                                <select class="form-control" data-bind="options: CTR,
+                            <!-- div class="row" data-bind="visible: NotShowProcessedLab">
+                                <div class='input-group'>
+                                    <span class="input-group-addon">
+                                        Why not processed?
+                                    </span>
+                                    <input id="NoReason" type='text' class="form-control" data-bind="value: NoProRen" />
+                                </div>
+                            </div -->
+                            <!-- div class="row" -->
+                            <!-- FIP -->
+                            <div class="col-md-2" data-bind="visible: $parent.ShowProcessedLab">
+                                <div class='input-group'>
+                                    <input type='text' class="form-control " data-bind='datepicker: $data.TestDate, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:$data.CanEdit' />
+                                </div>
+                            </div>
+                            <!-- FFP -->
+                            <div class="col-md-2" data-bind="visible: $parent.ShowProcessedLab">
+                                <div class='input-group'>
+                                    <input type='text' class="form-control" data-bind='datepicker: $data.TestEndDate , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:$data.CanEdit' />
+                                </div>
+                            </div>
+                            <!-- Vigilancia -->
+                            @*<div class="col-md-1_5" data-bind="visible: $data.ShowProcessedLab">
+                                <div class='input-group'>
+                                    <select class="form-control" data-bind="value: $data.TestType, enable:$data.CanEdit">
+                                        <option value="">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSelect"))</option>
+                                        <option value="1" data-bind="visible: CanIFI">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelIF"))</option>
+                                        <option value="2" data-bind="visible: CanPCR">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelPCR"))</option>
+                                        <option value="3" data-bind="visible:app.Views.Lab.isISP()">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCellCulture"))</option>
+                                    </select>
+                                </div>
+                            </div>*@
+                            <!-- Resultado -->
+                            @*<div class="col-md-1_5" data-bind="visible:$data.EnableTestResult">
+                                <div class='input-group' data-bind="enable:$data.CanEdit">
+                                    <select class="form-control" data-bind="options: CTR,
                                         optionsAfterRender: VisibleTestResultIFI,
                                         optionsText: 'Name',
                                         optionsValue: 'Id',
 							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
                                         value: TestResultID,
                                         enable:CanEdit"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible:EnableVirusTypes()">
-                        <!-- Espacio en blanco -->
-                        <div class="col-md-5">
-                        </div>
-                        <!-- Virus -->
-                        <div class="col-md-4">
-                            <div class='input-group' data-bind="visible:EnableVirusTypes()">
-                                <span class="input-group-addon">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelVirus"))
-                                </span>
-                                <select id="VirusTypeID" name="VirusTypeID" class="form-control" data-bind="options: CVT,
-                                        optionsAfterRender: VisibleFalseIFIVirus,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelVirus"))...',
-                                        value: VirusTypeID,
-                                        visible:EnableVirusTypes(),
-                                        enable:CanEdit"></select>
-                            </div>
-                        </div>
-                        <!-- CTVirusType -->
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                                </span>
-                                <input id="CTVirusType" type='text' maxlength="6" class="form-control CTInput" data-bind="value:CTVirusType, enable:CanEdit, visible:EnableCTVirusType" />
-                            </div>
-                        </div>
-                        <!-- CTRLVirusType -->
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTVirusType">
-                                <span class="input-group-addon" style="padding-left: 2px; padding-right: 2px;">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                                </span>
-                                <input id="CTRLVirusType" style="padding-left: 3px; padding-right: 2px;" type='text' maxlength="6" class="form-control" data-bind="value:CTRLVirusType, enable:CanEdit, visible:EnableCTVirusType" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row rowform" data-bind="visible:EnableOtherVirusTypes">
-                        <div class="col-md-5">
-                        </div>
-                        <div class="col-md-6">
-                            <div class='input-group' data-bind="visible:EnableOtherVirusTypes">
-                                <span class="input-group-addon">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelOtherVirus"))
-                                </span>
-                                <select class="form-control" data-bind="value: OtherVirusTypeID, visible:EnableOtherVirusTypes, enable:CanEdit">
-                                    <option value="">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSelect"))</option>
-                                    <option value="1">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabRhinovirus"))</option>
-                                    <option value="2">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabEnterovirus")) </option>
-                                    <option value="3">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabParainfluenzaIV"))</option>
-                                </select>
-                                <input id="OtherVirus" type='text' maxlength="20" class="form-control" data-bind="value:OtherVirus, enable:CanEdit, visible:EnableOtherVirusTypes" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTOtherVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                                </span>
-                                <input id="CTVirusType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTOtherVirusType, enable:CanEdit, visible:EnableCTOtherVirusType" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTOtherVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                                </span>
-                                <input id="CTRLOtherVirusType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLOtherVirusType, enable:CanEdit, visible:EnableCTOtherVirusType" />
-                            </div>
+                                </div>
+                            </div>*@
                         </div>
 
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusSubTypeID()">
-                        <div class="col-md-2">
-                        </div>
+                    </div> @* Termina div row principal *@
+                </div> @*End FOREACH LabTests*@
+                <!--_/kyyyyo_-->
 
-                        <div class='input-group col-md-3' data-bind="visible: EnableVirusSubTypeID()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))
-                            </span>
-                            <div @*data-bind="disabled: CanEdit()"*@>
-                                <select name="VirusSubTypeID" id="VirusSubTypeID" class="form-control" data-bind="options:$parent.SubTypeByLabRes,
-                                    optionsText: 'Name',
-                                    optionsValue: 'Id',
-                                    value:VirusSubTypeID,
-                                    visible: EnableVirusSubTypeID,
-                                    optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))...',
-                                    enable:CanEdit"></select>
-                            </div>
+                <!-- Boton: Añadir Resultado -->
+                <div class="row rowform" data-bind="visible: app.Views.Contact.Flow_Local_Institution_Lab()">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <div class="btn-group">
+                            @*<button id="addLabTest_1" type="button" class="btn btn-primary" data-bind="click:addLabTest.bind($data,1)">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelAddResult"))</button>*@
+                            <button id="addLabTest_1" type="button" class="btn btn-primary" >@(LabelAddResult)</button>
                         </div>
-                        <div class='input-group col-md-4' data-bind="visible: EnableTestResultID_VirusSubTypeID()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtypeResult"))
-                            </span>
-                            <select class="form-control" data-bind="options: CTR,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                        value: TestResultID_VirusSubType,
-                                        visible:EnableVirusSubTypeID,
-                                        enable:CanEdit"></select>
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType()">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTSubType, enable:CanEdit, visible:EnableCTSubType()" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType()">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLSubType, enable:CanEdit, visible:EnableCTSubType()" />
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusSubTypeID_2()">
-                        <div class="col-md-2">
-                        </div>
-                        <div class='input-group col-md-3' data-bind="visible: EnableVirusSubTypeID_2">
-
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))
-                            </span>
-                            <div @*data-bind="disabled: CanEdit()"*@>
-                                <select name="VirusSubTypeID_2" id="VirusSubTypeID_2" class="form-control" data-bind="options:$parent.SubTypeByLabRes,
-                                    optionsText: 'Name',
-                                    optionsValue: 'Id',
-                                    value:VirusSubTypeID_2,
-                                    visible: EnableVirusSubTypeID_2,
-                                    optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))...',
-                                    enable:CanEdit"></select>
-                            </div>
-                        </div>
-                        <div class='input-group col-md-4' data-bind="visible: EnableVirusSubTypeID_2">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtypeResult"))
-                            </span>
-                            <select class="form-control" data-bind="options: CTR,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                        value: TestResultID_VirusSubType_2,
-                                        visible:EnableVirusSubTypeID_2,
-                                        enable:CanEdit"></select>
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType_2">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTSubType_2" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTSubType_2, enable:CanEdit, visible:EnableCTSubType_2" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType_2">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLSubType_2" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLSubType_2, enable:CanEdit, visible:EnableCTSubType_2" />
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusLineageID() && app.Views.Lab.isISP()">
-                        <div class="col-md-5">
-                        </div>
-                        <div class='input-group col-md-4' data-bind="visible: EnableVirusLineageID() && app.Views.Lab.isISP()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLineage"))
-                            </span>
-                            <select id="VirusLineageID" name="VirusLineageID" class="form-control" data-bind="options: CVL,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLineage"))...',
-                                        value: VirusLineageID,
-                                        visible: EnableVirusLineageID,
-                                        enable:CanEdit"></select>
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTLineage">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTLineage" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTLineage, enable:CanEdit, visible:EnableCTLineage" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTLineage">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLLineage" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLLineage, enable:CanEdit, visible:EnableCTLineage" />
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableRNP ">
-                        <div class="col-md-7_5"></div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTRLNegative">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlNeg"))
-                            </span>
-                            <input id="CTRLNegative" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLNegative, enable:CanEdit, visible:EnableCTRLNegative" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:!EnableCTRLNegative()">
-                            <font color="#FFFFFF">****</font>
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableRNP">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelRNP")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="RNP" type='text' maxlength="5" class="form-control CTInput" data-bind="value:RNP, enable:CanEdit, visible:EnableRNP" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableRNP">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCTRLRNP"))
-                            </span>
-                            <input id="CTRLRNP" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLRNP, enable:CanEdit, visible:EnableRNP" />
-                        </div>
-
-                    </div>
-                </div> @* Termina div row principal *@
-            </div>
-
-            <!-- Boton: Añadir Resultado -->
-            <div class="row rowform" data-bind="visible:app.Views.Contact.Flow_Local_Institution_Lab()">
-                <div class="col-md-8"></div>
-                <div class="col-md-4">
-                    <div class="btn-group">
-                        <button id="addLabTest_1" type="button" class="btn btn-primary" data-bind="click:addLabTest.bind($data,1)">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelAddResult"))</button>
                     </div>
                 </div>
             </div>
-        </div>
+
+
+        </div> @*End FOREACH CaseLabses*@
+        <!--_/kxxxo_-->
+        
 
         @* Empieza muestra dos muestra 2 *@
-
-        <div class="row rowform"  data-bind="visible:VisibleMuestraRec2">
-            <div class="col-md-12">
-                <div style="font-weight:bold;font-size:11px">
-                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSample2"))
-                    <div class="btn-group">
-                        <button id="PrintM2" type="button" class="btn btn-primary" data-bind="click:app.Views.PrintTest.Generate.bind($data,2), visible:EnableCHIPrint">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelPrint"))</button>
-                    </div><br />
-                    <hr style="margin-top:3px; margin-bottom:3px; border-width:1px  0  0; " />
-                </div>
-            </div>
-        </div>
-
-        <div class="row rowform" id="Test_2" data-bind="visible:VisibleMuestraRec2">
-            <div class="col-md-3_5">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelReceptionDate2"))
-                    </span>
-                    <input id="RecDate2" type='text' class="form-control " data-bind='datepicker: RecDate2 , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
-                </div>
-            </div>
-        
-            <div class="col-md-3">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelTemp"))
-                    </span>
-                    <input id="TempSample2" type='text' class="form-control case_letter" data-bind="value: TempSample2" />
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row rowform" id="Test_2" data-bind="visible:VisibleMuestraRec2">
-            <div class="col-md-3_5">
-                <span>
-                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessed2"))
-                </span>
-                <label class="btn btn-default">
-                    <input type="radio" name="Processed2" id="Processed2" value="true" data-bind="checked: Processed2"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelYes"))
-                </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="Processed2" id="Processed2" value="false" checked data-bind="checked: Processed2"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelNo"))
-                </label>
-            </div>
-            <div class="col-md-5" data-bind="visible:NotShowProcessed2">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCauseNotProcessed2"))
-                    </span>
-                    <select id="NoProRenId2" class="form-control" data-bind="options: CSNP,
-                        optionsText: 'Name',
-                        optionsValue: 'Id',
-                        optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabCaseLabelSelect"))...',
-                        value: NoProRenId2"></select>
-                    <input id="NoReason2" type='text' class="form-control case_letter" data-bind="value: NoProRen2 , visible:NotShowProcessedOther2" />
-                </div>
-            </div>
-
-            <div class="col-md-5" data-bind="visible:ShowProcessed2">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigLabIntLabelBarCode"))
-                    </span>
-                    <input id="Identification_Test2" name="Identification_Test2" type='text' class="form-control case_letter" data-bind="value: Identification_Test2" />
-                </div>
-            </div>
-        </div>
-
-        <div class="row rowform" data-bind="visible:VisibleMuestraRec2">
-            <div class="col-md-12">
-                <div style="font-weight:bold;font-size:11px">
-                    <hr style="margin-top:3px; margin-bottom:3px; border-width:1px  0  0; " />
-                </div>
-            </div>
-        </div>
-
-        <div data-bind="visible:ShowProcessed2" style="padding-left:15px;">
-            <div class="row rowform">
-                <div class="row rowform">
-                    <div class="col-md-3">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLab")) 
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessed"))
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessStartDate"))
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessEndDate")) 
-                        </span>
-                    </div>
-                    <div class="col-md-3">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResult")) 
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div id="LabTests_Sample2" data-bind="foreach: { data: LabTests_Sample2 }">
-                <div class="row rowform" style="border-bottom:dashed; border-bottom-width:thin; padding-bottom:5px;">
-                    <div class="row rowform">
-                        <div class="col-md-3">
-                            <div class='input-group'>
-                                <div data-bind="visible: CanEdit()">
-                                    <select name="DrpProcLab" id="DrpProcLab" class="form-control" data-bind="options:$parent.LabsResult,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-                                        value:ProcLab">
-                                    </select>
-                                </div>
-                                <div data-bind="visible: !CanEdit()">
-                                    <label data-bind="text: ProcLabName "></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="btn btn-default">
-                                <input type="radio" value="true" data-bind="checked: ProcessLab, enable:CanEdit"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelYes"))
-                            </label>
-                            <label class="btn btn-default">
-                                <input type="radio" value="false" data-bind="checked: ProcessLab, enable:CanEdit"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelNo"))
-                            </label>
-                        </div>
-                        @*<div class="row" data-bind="visible: NotShowProcessedLab">
-                            <div class='input-group'>
-                                <span class="input-group-addon">
-                                    Why not processed?
-                                </span>
-                                <input id="NoReason" type='text' class="form-control" data-bind="value:NoProRen, enable:CanEdit" />
-                            </div>
-                        </div>*@
-
-                        <!-- div class="row" -->
-                        <div class="col-md-2" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <input type='text' class="form-control " data-bind='datepicker: TestDate, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:CanEdit' />
-                            </div>
-                        </div>
-                        <div class="col-md-2" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <input type='text' class="form-control" data-bind='datepicker: TestEndDate , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:CanEdit' />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <select class="form-control" data-bind="value: TestType, enable:CanEdit">
-                                    <option value="">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSelect"))</option>
-                                    <option value="1" data-bind="visible: CanIFI">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelIF"))</option>
-                                    <option value="2" data-bind="visible: CanPCR">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelPCR"))</option>
-                                    <option value="3"  data-bind="visible:app.Views.Lab.isISP()">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCellCulture"))</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-1_5" data-bind="visible:EnableTestResult">
-                            <div class='input-group' data-bind="enable:CanEdit">
-                                <select class="form-control" data-bind="options: CTR,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                        value: TestResultID,
-                                        enable:CanEdit">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible:EnableVirusTypes()">
-                        <div class="col-md-5">
-                        </div>
-                        <div class="col-md-4">
-                            <div class='input-group' data-bind="visible:EnableVirusTypes()">
-                                    <span class="input-group-addon">
-                                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelVirus"))
-                                    </span>
-                                <select id="VirusTypeID" name="VirusTypeID" class="form-control" data-bind="options: CVT,
-                                        optionsAfterRender: VisibleFalseIFIVirus,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelVirus"))...',
-                                        value: VirusTypeID,
-                                        visible:EnableVirusTypes(),
-                                        enable:CanEdit">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                                </span>
-                                <input id="CTVirusType" type='text' maxlength="6" class="form-control CTInput" data-bind="value:CTVirusType, enable:CanEdit, visible:EnableCTVirusType" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTVirusType">
-                                <span class="input-group-addon" style="padding-left: 2px; padding-right: 2px;">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                                </span>
-                                <input id="CTRLVirusType" style="padding-left: 3px; padding-right: 2px;" type='text' maxlength="6" class="form-control" data-bind="value:CTRLVirusType, enable:CanEdit, visible:EnableCTVirusType" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible:EnableOtherVirusTypes">
-                        <div class="col-md-5">
-                        </div>
-                        <div class="col-md-6">
-                            <div class='input-group' data-bind="visible:EnableOtherVirusTypes">
-                                <span class="input-group-addon">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelOtherVirus"))
-                                </span>
-                                    <select class="form-control" data-bind="value: OtherVirusTypeID, visible:EnableOtherVirusTypes, enable:CanEdit">
-                                        <option value="">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSelect"))</option>
-                                        <option value="1">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabRhinovirus"))</option>
-                                        <option value="2">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabEnterovirus")) </option>
-                                        <option value="3">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabParainfluenzaIV"))</option>
-                                    </select>
-                                <input id="OtherVirus" type='text' maxlength="20" class="form-control" data-bind="value:OtherVirus, enable:CanEdit, visible:EnableOtherVirusTypes" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTOtherVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                                </span>
-                                <input id="CTVirusType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTOtherVirusType, enable:CanEdit, visible:EnableCTOtherVirusType" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTOtherVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                                </span>
-                                <input id="CTRLOtherVirusType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLOtherVirusType, enable:CanEdit, visible:EnableCTOtherVirusType" />
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusSubTypeID()">
-                        <div class="col-md-2">
-                        </div>
-
-                        <div class='input-group col-md-3' data-bind="visible: EnableVirusSubTypeID()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))
-                            </span>
-                            <div @*data-bind="visible: CanEdit()"*@>
-                                <select name="VirusSubTypeID" id="VirusSubTypeID" class="form-control" data-bind="options:$parent.SubTypeByLabRes,
-                                    optionsText: 'Name',
-                                    optionsValue: 'Id',
-                                    value:VirusSubTypeID,
-                                    visible: EnableVirusSubTypeID,
-                                    optionsCaption:'@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))...',
-                                    enable:CanEdit">
-                                </select>
-                            </div>
-                        </div>
-                <div class='input-group col-md-4' data-bind="visible: EnableVirusSubTypeID()">
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtypeResult"))
-                    </span>
-                    <select class="form-control" data-bind="options: CTR,
-                                optionsText: 'Name',
-                                optionsValue: 'Id',
-                                optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                value: TestResultID_VirusSubType,
-                                visible:EnableVirusSubTypeID,
-                                enable:CanEdit"></select>
-                </div>
-                <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType()">
-                    <span class="input-group-addon CTSpan">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                    </span>
-                    <input id="CTSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTSubType, enable:CanEdit, visible:EnableCTSubType" />
-                </div>
-                <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType">
-                    <span class="input-group-addon CTSpan">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                    </span>
-                    <input id="CTRLSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLSubType, enable:CanEdit, visible:EnableCTSubType" />
-                </div>
-            </div>
-            <div class="row rowform" data-bind="visible: EnableVirusSubTypeID_2()">
-                <div class="col-md-2">
-                </div>
-
-                <div class='input-group col-md-3' data-bind="visible: EnableVirusSubTypeID_2">
-
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))
-                    </span>
-                    <div @*data-bind="visible: CanEdit()"*@>
-                                <select name="VirusSubTypeID_2" id="VirusSubTypeID_2" class="form-control" data-bind="options:$parent.SubTypeByLabRes,
-                                    optionsText: 'Name',
-                                    optionsValue: 'Id',
-                                    value:VirusSubTypeID_2,
-                                    visible: EnableVirusSubTypeID_2,
-                                    optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))...',
-                                    enable:CanEdit"></select>
-                            </div>
-                        </div>
-                        <div class='input-group col-md-4' data-bind="visible: EnableVirusSubTypeID_2">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtypeResult"))
-                            </span>
-                            <select class="form-control" data-bind="options: CTR,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                        value: TestResultID_VirusSubType_2,
-                                        visible:EnableVirusSubTypeID_2,
-                                        enable:CanEdit"></select>
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType_2">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTSubType_2, enable:CanEdit, visible:EnableCTSubType_2" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType_2">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLSubType_2, enable:CanEdit, visible:EnableCTSubType_2" />
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusLineageID() && app.Views.Lab.isISP()">
-                        <div class="col-md-5">
-                        </div>
-                        <div class='input-group col-md-4' data-bind="visible: EnableVirusLineageID() && app.Views.Lab.isISP()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLineage"))
-                            </span>
-                            <select id="VirusLineageID" name="VirusLineageID" class="form-control" data-bind="options: CVL,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLineage"))...',
-                                        value: VirusLineageID,
-                                        visible: EnableVirusLineageID,
-                                        enable:CanEdit"></select>
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTLineage">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTLineage" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTLineage, enable:CanEdit, visible:EnableCTLineage" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTLineage">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLLineage" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLLineage, enable:CanEdit, visible:EnableCTLineage" />
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableRNP ">
-                        <div class="col-md-7_5"></div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTRLNegative">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlNeg"))
-                            </span>
-                            <input id="CTRLNegative" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLNegative, enable:CanEdit, visible:EnableCTRLNegative" />
-                        </div>
-                        @*<div class='input-group col-md-2_5' data-bind="visible:!EnableCTRLNegative()">
-                            <font color="#FFFFFF">****</font>
-                        </div>*@
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableRNP">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelRNP")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="RNP" type='text' maxlength="5" class="form-control CTInput" data-bind="value:RNP, enable:CanEdit, visible:EnableRNP" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableRNP">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCTRLRNP"))
-                            </span>
-                            <input id="CTRLRNP" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLRNP, enable:CanEdit, visible:EnableRNP" />
-                        </div>
-
-                    </div>
-                </div>
-            </div>  @* Termina div row principal *@
-            <div class="row rowform" data-bind="visible:app.Views.Contact.Flow_Local_Institution_Lab()">
-                <div class="col-md-8"></div>
-                <div class="col-md-4">
-                    <div class="btn-group">
-                        <button id="addLabTest_2" type="button" class="btn btn-primary" data-bind="click:addLabTest.bind($data,2)">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelAddResult"))</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
 
 
         @* Empieza la muestra 3 *@
 
-        <div class="row rowform" data-bind="visible:VisibleMuestraRec3">
-            <div class="col-md-12">
-                <div style="font-weight:bold;font-size:11px">
-                    <hr style="margin-top:3px; margin-bottom:3px; border-width:1px  0  0; " />
-                    <br/>
-                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSample3"))
-
-                    <div class="btn-group">
-                        <button id="PrintM3" type="button" class="btn btn-primary" data-bind="click:app.Views.PrintTest.Generate.bind($data,3), visible:EnableCHIPrint">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelPrint"))</button>
-                    </div>
-
-                    <br />
-                    <hr style="margin-top:3px; margin-bottom:3px; border-width:1px  0  0; " />
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row rowform" id="Test_3" data-bind="visible:VisibleMuestraRec3">
-            <div class="col-md-3_5">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelReceptionDate3"))
-                    </span>
-                    <input id="RecDate3" type='text' class="form-control " data-bind='datepicker: RecDate3 , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelTemp"))
-                    </span>
-                    <input id="TempSample3" type='text' class="form-control case_letter" data-bind="value: TempSample3" />
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row rowform" id="Test_3" data-bind="visible:VisibleMuestraRec3">
-            <div class="col-md-3_5">
-                <span>
-                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessed3"))
-                </span>
-                <label class="btn btn-default">
-                    <input type="radio" name="Processed3" id="Processed3" value="true" data-bind="checked: Processed3"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelYes"))
-                </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="Processed3" id="Processed3" value="false" checked data-bind="checked: Processed3"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelNo"))
-                </label>
-            </div>
-
-            <div class="col-md-5" data-bind="visible:NotShowProcessed3">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCauseNotProcessed3"))
-                    </span>
-                    <select id="NoProRenId3" class="form-control" data-bind="options: CSNP,
-                    optionsText: 'Name',
-                    optionsValue: 'Id',
-                    optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabCaseLabelSelect"))...',
-                    value: NoProRenId3"></select>
-                    <input id="NoReason3" type='text' class="form-control case_letter" data-bind="value: NoProRen3 , visible:NotShowProcessedOther3" />
-                </div>
-            </div>
-
-            <div class="col-md-5" data-bind="visible:ShowProcessed3">
-                <div class='input-group'>
-                    <span class="input-group-addon">
-                        @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigLabIntLabelBarCode"))
-                    </span>
-                    <input id="Identification_Test3" name="Identification_Test3" type='text' class="form-control case_letter" data-bind="value: Identification_Test3" />
-                </div>
-            </div>
-        </div>
-
-        <div class="row rowform" data-bind="visible:VisibleMuestraRec3">
-            <div class="col-md-12">
-                <div style="font-weight:bold;font-size:11px">
-                    <hr style="margin-top:3px; margin-bottom:3px; border-width:1px  0  0; " />
-                </div>
-            </div>
-        </div>
-
-        <div data-bind="visible:ShowProcessed3()">
-            <div class="row rowform">
-                <div class="row rowform">
-                    <div class="col-md-3">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLab")) 
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessed"))
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessStartDate"))
-                        </span>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelProcessEndDate")) 
-                        </span>
-                    </div>
-                    <div class="col-md-3">
-                        <span class="input-group-addon">
-                            @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResult"))                                
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div id="LabTests_Sample3" data-bind="foreach: { data: LabTests_Sample3 }">
-                <div class="row rowform" style="border-bottom:dashed; border-bottom-width:thin; padding-bottom:5px;">
-                    <div class="row rowform">
-                        <div class="col-md-3">
-                            <div class='input-group'>
-                                <div data-bind="visible: CanEdit()">
-                                    <select name="DrpProcLab" id="DrpProcLab" class="form-control" data-bind="options:$parent.LabsResult,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-                                        value:ProcLab">
-                                    </select>
-                                </div>
-                                <div data-bind="visible: !CanEdit()">
-                                    <label data-bind="text: ProcLabName "></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="btn btn-default">
-                                <input type="radio" value="true" data-bind="checked: ProcessLab, enable:CanEdit"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelYes"))
-                            </label>
-                            <label class="btn btn-default">
-                                <input type="radio" value="false" data-bind="checked: ProcessLab, enable:CanEdit"> @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelNo"))
-                            </label>
-                        </div>
-                        @*<div class="row" data-bind="visible: NotShowProcessedLab">
-                        <div class='input-group'>
-                            <span class="input-group-addon">
-                                Why not processed?
-                            </span>
-                            <input id="NoReason" type='text' class="form-control" data-bind="value:NoProRen, enable:CanEdit" />
-                        </div>
-                    </div>*@
-
-                        <!-- div class="row" -->
-                        <div class="col-md-2" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <input type='text' class="form-control " data-bind='datepicker: TestDate, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:CanEdit' />
-                            </div>
-                        </div>
-                        <div class="col-md-2" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <input type='text' class="form-control" data-bind='datepicker: TestEndDate , datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}, enable:CanEdit' />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5" data-bind="visible: ShowProcessedLab">
-                            <div class='input-group'>
-                                <select class="form-control" data-bind="value: TestType, enable:CanEdit">
-                                    <option value="">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSelect"))</option>
-                                    <option value="2" data-bind="visible: CanPCR">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelPCR"))</option>
-                                    <option value="1" data-bind="visible: CanIFI">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelIF"))</option>
-                                    <option value="3" data-bind="visible:app.Views.Lab.isISP()">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCellCulture"))</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableTestResult">
-                                <select class="form-control" data-bind="options: CTR,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                        value: TestResultID,
-                                        enable:CanEdit">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible:EnableVirusTypes()">
-                        <div class="col-md-5">
-                        </div>
-                        <div class="col-md-4">
-                            <div class='input-group' data-bind="visible:EnableVirusTypes()">
-                                <span class="input-group-addon">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelVirus"))
-                                </span>
-                                <select id="VirusTypeID" name="VirusTypeID" class="form-control" data-bind="options: CVT,
-                                        optionsAfterRender: VisibleFalseIFIVirus,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelVirus"))...',
-                                        value: VirusTypeID,
-                                        visible:EnableVirusTypes(),
-                                        enable:CanEdit"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                                </span>
-                                <input id="CTVirusType" type='text' maxlength="6" class="form-control CTInput" data-bind="value:CTVirusType, enable:CanEdit, visible:EnableCTVirusType" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTVirusType">
-                                <span class="input-group-addon" style="padding-left: 2px; padding-right: 2px;">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                                </span>
-                                <input id="CTRLVirusType" style="padding-left: 3px; padding-right: 2px;" type='text' maxlength="6" class="form-control" data-bind="value:CTRLVirusType, enable:CanEdit, visible:EnableCTVirusType" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible:EnableOtherVirusTypes">
-                        <div class="col-md-5">
-                        </div>
-                        <div class="col-md-6">
-                            <div class='input-group' data-bind="visible:EnableOtherVirusTypes">
-                                <span class="input-group-addon">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelOtherVirus"))
-                                </span>
-                                <select class="form-control" data-bind="value: OtherVirusTypeID, visible:EnableOtherVirusTypes, enable:CanEdit">
-                                    <option value="">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSelect"))</option>
-                                    <option value="1">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabRhinovirus"))</option>
-                                    <option value="2">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabEnterovirus")) </option>
-                                    <option value="3">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabParainfluenzaIV"))</option>
-                                </select>
-                                <input id="OtherVirus" type='text' maxlength="20" class="form-control" data-bind="value:OtherVirus, enable:CanEdit, visible:EnableOtherVirusTypes" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTOtherVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                                </span>
-                                <input id="CTVirusType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTOtherVirusType, enable:CanEdit, visible:EnableCTOtherVirusType" />
-                            </div>
-                        </div>
-                        <div class="col-md-1_5">
-                            <div class='input-group' data-bind="visible:EnableCTOtherVirusType">
-                                <span class="input-group-addon CTSpan">
-                                    @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                                </span>
-                                <input id="CTRLOtherVirusType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLOtherVirusType, enable:CanEdit, visible:EnableCTOtherVirusType" />
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusSubTypeID()">
-                        <div class="col-md-2">
-                        </div>
-
-                        <div class='input-group col-md-3' data-bind="visible: EnableVirusSubTypeID()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))
-                            </span>
-                            <div @*data-bind="visible: CanEdit()"*@>
-                                <select name="VirusSubTypeID" id="VirusSubTypeID" class="form-control" data-bind="options:$parent.SubTypeByLabRes,
-                                    optionsText: 'Name',
-                                    optionsValue: 'Id',
-                                    value:VirusSubTypeID,
-                                    visible: EnableVirusSubTypeID,
-                                    optionsCaption:'@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))...',
-                                    enable:CanEdit">
-                                </select>
-                            </div>
-                        </div>
-                        <div class='input-group col-md-4' data-bind="visible: EnableVirusSubTypeID()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtypeResult"))
-                            </span>
-                            <select class="form-control" data-bind="options: CTR,
-                                optionsText: 'Name',
-                                optionsValue: 'Id',
-                                optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                value: TestResultID_VirusSubType,
-                                visible:EnableVirusSubTypeID,
-                                enable:CanEdit"></select>
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType()">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTSubType, enable:CanEdit, visible:EnableCTSubType" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLSubType, enable:CanEdit, visible:EnableCTSubType" />
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusSubTypeID_2()">
-                        <div class="col-md-2">
-                        </div>
-
-                        <div class='input-group col-md-3' data-bind="visible: EnableVirusSubTypeID_2">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))
-                            </span>
-                            <div @*data-bind="visible: CanEdit()"*@>
-                                <select name="VirusSubTypeID_2" id="VirusSubTypeID_2" class="form-control" data-bind="options:$parent.SubTypeByLabRes,
-                                    optionsText: 'Name',
-                                    optionsValue: 'Id',
-                                    value:VirusSubTypeID_2,
-                                    visible: EnableVirusSubTypeID_2,
-                                    optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtype"))...',
-                                    enable:CanEdit">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class='input-group col-md-4' data-bind="visible: EnableVirusSubTypeID_2">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelSubtypeResult"))
-                            </span>
-                            <select class="form-control" data-bind="options: CTR,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelResultSelect"))',
-                                        value: TestResultID_VirusSubType_2,
-                                        visible:EnableVirusSubTypeID_2,
-                                        enable:CanEdit">
-                            </select>
-                        </div>
-
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType_2">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTSubType_2, enable:CanEdit, visible:EnableCTSubType_2" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTSubType_2">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLSubType" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLSubType_2, enable:CanEdit, visible:EnableCTSubType_2" />
-                        </div>
-                    </div>
-                    <div class="row rowform" data-bind="visible: EnableVirusLineageID() && app.Views.Lab.isISP()">
-                        <div class="col-md-5">
-                        </div>
-
-                        <div class='input-group col-md-4' data-bind="visible: EnableVirusLineageID() && app.Views.Lab.isISP()">
-                            <span class="input-group-addon">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLineage"))
-                            </span>
-                            <select id="VirusLineageID" name="VirusLineageID" class="form-control" data-bind="options: CVL,
-                                        optionsText: 'Name',
-                                        optionsValue: 'Id',
-							            optionsCaption: '@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelLineage"))...',
-                                        value: VirusLineageID,
-                                        visible: EnableVirusLineageID,
-                                        enable:CanEdit">
-                            </select>
-                        </div>
-
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTLineage">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCT")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="CTLineage" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTLineage, enable:CanEdit, visible:EnableCTLineage" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTLineage">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlPos"))
-                            </span>
-                            <input id="CTRLLineage" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLLineage, enable:CanEdit, visible:EnableCTLineage" />
-                        </div>
-                    </div>
-
-                    <div class="row rowform" data-bind="visible: EnableRNP ">
-                        <div class="col-md-7_5"></div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableCTRLNegative">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCtrlNeg"))
-                            </span>
-                            <input id="CTRLNegative" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLNegative, enable:CanEdit, visible:EnableCTRLNegative" />
-                        </div>
-                        @*<div class='input-group col-md-2_5' data-bind="visible:!EnableCTRLNegative()">
-                        <font color="#FFFFFF">****</font>
-                    </div>*@
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableRNP">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelRNP")) <font color="#FF0000">*</font>:
-                            </span>
-                            <input id="RNP" type='text' maxlength="5" class="form-control CTInput" data-bind="value:RNP, enable:CanEdit, visible:EnableRNP" />
-                        </div>
-                        <div class='input-group col-md-1_5' data-bind="visible:EnableRNP">
-                            <span class="input-group-addon CTSpan">
-                                @(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelCTRLRNP"))
-                            </span>
-                            <input id="CTRLRNP" type='text' maxlength="5" class="form-control CTInput" data-bind="value:CTRLRNP, enable:CanEdit, visible:EnableRNP" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row rowform" data-bind="visible:app.Views.Contact.Flow_Local_Institution_Lab()">
-                <div class="col-md-8"></div>
-                <div class="col-md-4">
-                    <div class="btn-group">
-                        <button id="addLabTest_3" type="button" class="btn btn-primary" data-bind="click:addLabTest.bind($data,3)">@(((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("msgCaselistVigTabLabelAddResult"))</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         @* Termina la muestra 3 *@
 
